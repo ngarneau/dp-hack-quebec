@@ -72,7 +72,7 @@ class Listmash < Sinatra::Base
     doc = Nokogiri::XML(response)
     listings = Array.new
     doc.xpath('//listingList/listing').map do |i|
-      listing = {"code" => i.xpath('code').text, "picture" => i.xpath('photoMainMedium').text}
+      listing = {"code" => i.xpath('code').text, "picture" => i.xpath('photoMainLarge').text}
       listings.push listing
     end
 
