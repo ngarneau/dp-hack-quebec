@@ -6,6 +6,10 @@
     .navbar-inner
       .container
         %a{:href => "/", :class => "brand"} Listmash
+        .nav-collapse.collapse
+          %ul.nav
+            %li
+              %a{:href => "/ratings"} Ratings
   .container{:style => "margin-top:60px;"}
     .row
       - @listings.each do |listing|

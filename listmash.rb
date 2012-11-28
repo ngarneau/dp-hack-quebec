@@ -23,7 +23,7 @@ class Listmash < Sinatra::Base
   end
 
   configure do
-    set :api_url, 'http://devdp:devdp@project-hqc.api2.duproprio.com/'
+    set :api_url, 'http://api-beta.duproprio.com/'
     set :username, 'hackquebec20'
     set :userkey, '4reweiccov'
     set :appid, '666'
@@ -77,7 +77,6 @@ class Listmash < Sinatra::Base
   post '/' do
     code = params[:code]
     listing = Listing.first(:code => code)
-    p listing.methods
     if listing.nil?
       newListing = Listing.create(:code => code)
       newListing.increment(:score => 1)
@@ -86,6 +85,29 @@ class Listmash < Sinatra::Base
       listing.save
     end
     redirect '/'
+  end
+
+  get '/ratings' do
+    listings = Listing.all(:order => :score.desc)
+    listingsToDisplay = Array.new
+    listings.each do |listing|
+      response = RestClient.get "#{settings.api_url}GetListingPhotos", {:params =>
+        {
+          :username => settings.username,
+          :userkey => settings.userkey,
+          :appid => settings.appid,
+          :lang => 'fr',
+          :brand => 'dp',
+          :code => listing["code"]
+        }
+      }
+      doc = Nokogiri::XML(response)
+      @picture = doc.xpath('//photoList/photo/medium')[0].text
+      listingToDisplay = {"code" => listing["code"], "picture" => @picture, "score" => listing["score"]}
+      listingsToDisplay.push listingToDisplay
+    end
+    @listingsToDisplay = listingsToDisplay
+    haml :ratings
   end
 
 end

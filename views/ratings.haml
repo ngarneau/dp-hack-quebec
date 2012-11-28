@@ -1,0 +1,22 @@
+!!!5
+%head
+  %link{:href => "/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}
+%body
+  .navbar.navbar-inverse.navbar-fixed-top
+    .navbar-inner
+      .container
+        %a{:href => "/", :class => "brand"} Listmash
+  .container{:style => "margin-top:60px;"}
+    .row
+      %table.table.table-bordered
+        %thead
+          %tr
+            %th Listing
+            %th Ranking
+        - @listingsToDisplay.each do |listing|
+          %tr
+            %td
+              %img{:src => "#{listing["picture"]}"}
+            %td{:style => "font-size:55px;padding-top:40px;text-align:center"}= listing["score"]
+
+  %script{:text => "/js/bootstrap.js"}
