@@ -27,6 +27,13 @@ class Listmash < Sinatra::Base
     set :username, 'hackquebec20'
     set :userkey, '4reweiccov'
     set :appid, '666'
+    set :latlongs, [
+      {"lat" => "46.819798", "lon" => "-71.225447"}, # quebec
+      {"lat" => "46.399988", "lon" => "-72.573349"}, # trois-rivieres
+      {"lat" => "45.515971", "lon" => "-73.559372"}, # montreal
+      {"lat" => "45.450497", "lon" => "-75.729172"}, # ottawa
+      {"lat" => "43.663898", "lon" => "-79.388031"} # toronto
+    ]
   end
 
   before do
@@ -47,6 +54,7 @@ class Listmash < Sinatra::Base
   end
 
   get '/' do
+    @sample = settings.latlongs.sample
     response = RestClient.get "#{settings.api_url}GetListingsByCoordinates", {:params =>
       {
         :username => settings.username,
@@ -54,8 +62,8 @@ class Listmash < Sinatra::Base
         :appid => settings.appid,
         :lang => 'fr',
         :brand => 'dp',
-        :lat => '46.819798',
-        :lon => '-71.225447',
+        :lat => @sample["lat"],
+        :lon => @sample["lon"],
         :km => '100',
         :maxresults => '10',
         :group => 'residential'
