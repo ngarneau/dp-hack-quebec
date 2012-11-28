@@ -65,6 +65,7 @@ class Listmash < Sinatra::Base
         :lat => @sample["lat"],
         :lon => @sample["lon"],
         :km => '100',
+        :minprince => '400000',
         :maxresults => '10',
         :group => 'residential'
       }
