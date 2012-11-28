@@ -1,0 +1,19 @@
+!!!5
+%head
+  %link{:href => "/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}
+%body
+  .navbar.navbar-inverse.navbar-fixed-top
+    .navbar-inner
+      .container
+        %a{:href => "/", :class => "brand"} Listmash
+  .container{:style => "margin-top:60px;"}
+    .row
+      - @listings.each do |listing|
+        .span-4
+          %form{:method => "post", :class => "form-signin"}
+            %p
+              %img{:src => "#{listing["picture"]}"}
+            %p
+              %input{:type => "submit", :value => "Vote!"}
+              %input{:type => "hidden", :name => "code", :value => "#{listing["code"]}"}
+  %script{:text => "/js/bootstrap.js"}
