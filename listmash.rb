@@ -23,8 +23,8 @@ class Listmash < Sinatra::Base
 
   configure do
     set :api_url, 'http://api-beta.duproprio.com/'
-    set :username, 'hackquebec20'
-    set :userkey, '4reweiccov'
+    set :username, ENV['API_USER']
+    set :userkey, ENV['API_PASS']
     set :appid, '666'
     set :latlongs, [
       {"lat" => "46.819798", "lon" => "-71.225447"}, # quebec
