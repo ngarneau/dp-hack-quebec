@@ -5,9 +5,9 @@ Bundler.require :default
 
 class Listing
   include MongoMapper::Document
-  key :code
-  key :score
-  attr_accessible :code, :score
+  key :code, String
+  key :score, Integer
+  attr_accessible :score, :code
   validates_uniqueness_of :code
   timestamps!
 end
@@ -84,14 +84,13 @@ class Listmash < Sinatra::Base
   end
 
   post '/' do
-    code = params[:code]
-    listing = Listing.first(:code => code)
-    if listing.nil?
-      newListing = Listing.create(:code => code)
-      newListing.increment(:score => 1)
+    @code = params[:code]
+    @listing = Listing.first(:code => @code)
+    if @listing.nil?
+      newListing = Listing.create(:code => @code, :score => 1)
+      newListing.save
     else
-      listing.increment(:score => 1)
-      listing.save
+      @listing.increment(:score => 1)
     end
     redirect '/'
   end

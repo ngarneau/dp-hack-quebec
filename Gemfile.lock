@@ -50,7 +50,6 @@ PLATFORMS
 DEPENDENCIES
   bson_ext
   haml
-  mongo
   mongo_mapper
   nokogiri
   rack
