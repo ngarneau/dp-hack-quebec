@@ -48,6 +48,10 @@ class Listmash < Sinatra::Base
     haml :"/error"
   end
 
+  get '/trololo' do
+    haml :trololo
+  end
+
   get '/' do
     @sample = settings.latlongs.sample
     response = RestClient.get "#{settings.api_url}GetListingsByCoordinates", {:params =>
