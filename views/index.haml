@@ -16,7 +16,7 @@
         .span-4
           %form{:method => "post", :class => "form-signin"}
             %p
-              %img{:src => "#{listing["picture"]}"}
+              %img{:src => "#{listing["picture"]}", :width => '460'}
             %p
               %input{:type => "submit", :value => "Vote!"}
               %input{:type => "hidden", :name => "code", :value => "#{listing["code"]}"}
