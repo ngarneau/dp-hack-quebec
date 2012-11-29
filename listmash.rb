@@ -1,6 +1,5 @@
 require 'sinatra/base'
 require 'bundler'
-require 'open-uri'
 Bundler.require :default
 
 class Listing
@@ -34,10 +33,6 @@ class Listmash < Sinatra::Base
       {"lat" => "45.450497", "lon" => "-75.729172"}, # ottawa
       {"lat" => "43.663898", "lon" => "-79.388031"} # toronto
     ]
-  end
-
-  before do
-    # before each route are called
   end
 
   # Special route
