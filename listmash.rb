@@ -110,9 +110,13 @@ class Listmash < Sinatra::Base
         }
       }
       doc = Nokogiri::XML(response)
-      @picture = doc.xpath('//photoList/photo/medium')[0].text
-      listingToDisplay = {"code" => listing["code"], "picture" => @picture, "score" => listing["score"]}
-      listingsToDisplay.push listingToDisplay
+      if @picture = doc.xpath('//photoList/photo/medium')[0].nil?
+        p "object is nil"
+      else
+        @picture = doc.xpath('//photoList/photo/medium')[0].text
+        listingToDisplay = {"code" => listing["code"], "picture" => @picture, "score" => listing["score"]}
+        listingsToDisplay.push listingToDisplay
+      end
     end
     @listingsToDisplay = listingsToDisplay
     haml :ratings
